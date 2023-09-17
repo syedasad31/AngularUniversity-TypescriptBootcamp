@@ -1,0 +1,6 @@
+/fundamentals/node_modules
+/.idea/.gitignore
+/.idea/AngularUniversity-TypescriptBootcamp.iml
+/.idea/modules.xml
+/.idea/vcs.xml
+/**/*.js
