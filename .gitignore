@@ -3,6 +3,9 @@
 /.idea/AngularUniversity-TypescriptBootcamp.iml
 /.idea/modules.xml
 /.idea/vcs.xml
-*.js
+node_modules
+.js
 .env
-/rest-api/node_modules/
+rest-api/node_modules
+rest-api/dist
+rest-api/logs
