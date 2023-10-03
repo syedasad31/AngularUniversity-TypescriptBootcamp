@@ -9,6 +9,10 @@ export class Course {
     id: number;
     @Column()
     seqNo: number;
+    @Column({
+        nullable: true
+    })
+    url: string;
     @Column()
     title: string;
     @Column()
