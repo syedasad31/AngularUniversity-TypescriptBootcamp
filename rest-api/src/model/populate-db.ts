@@ -1,10 +1,12 @@
 import * as dotenv from "dotenv";
 const result = dotenv.config();
-import {COURSES} from "./db-data";
+import {COURSES, USERS} from "./db-data";
 import {AppDataSource} from "../datasource";
 import {DeepPartial} from "typeorm";
 import {Course} from "./Course";
 import {Lesson} from "./Lesson";
+import {User} from "./User";
+import {calculatePasswordHash} from "../utils";
 
 async function  populateDb() {
     await AppDataSource.initialize();
@@ -24,6 +26,22 @@ async function  populateDb() {
             lesson.course = course;
             await lessonRepo.save(lesson);
         }
+    }
+
+
+    const users = Object.values(USERS) as any[];
+    const userRepo = AppDataSource.getRepository(User);
+
+    for(let userData of users) {
+        const {email, pictureUrl, isAdmin, passwordSalt, plainTextPassword} = userData;
+        const user = userRepo.create({
+            email,
+            pictureUrl,
+            isAdmin,
+            passwordSalt,
+            passwordHash: await calculatePasswordHash(plainTextPassword, passwordSalt)
+        });
+        await AppDataSource.manager.save(user);
     }
 
 
